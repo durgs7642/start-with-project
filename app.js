@@ -110,7 +110,9 @@ app.use((req, res, next) => {
 //    res.send(registeredUser);
 // });
 
-
+app.get("/", (req, res) => {
+    res.redirect("/listings");
+});
 
 app.use("/listings" , listingRouter);    
 app.use("/listings/:id/reviews", reviewRouter);
@@ -139,7 +141,7 @@ app.use("/",filterRouter);
 app.use((req, res, next) => { 
    next(new ExpressError(404, "Page Not Found"));
 });
-
+    
 app.use((err, req, res, next)=> {
     let {statusCode = 500, message = "something went wrong!"} = err;
     res.status(statusCode).render("error.ejs",{message});
